@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $('#test-button').click(function(event){
+            GetEventDetails(event);
+          })
+          //notice below event is not passed to anonymous function but the code will still work for most browsers
+          // the difference is the type of event object. below event object is a pure javascript object hence it might 
+          //not support PageX and PageY and other properties in some browsers.
+          // there is a fix to this below.
+          .mouseover(function(){
+            GetEventDetails(event);
+          }).mouseout(function(event){
+            GetEventDetails(event);
+          })
+        function GetEventDetails(event){
+          //in case event is a javascript object , below code will convert it to Jquery Object
+          var event = $.event.fix(event);
+        var eventDetails = 'Event = '+ event.type +'<br/>' +
+                                 'X =' + event.pageX  + '<br/>' +
+                                 'Y =' + event.pageY + '<br/>' +
+                                 'Target Element = ' + event.target.type + '<br/>' +
+                                 'Target Element tag name = '+ event.target.tagName + '<br/>' 
+                                 $('#divResult').html(eventDetails);
+        }
+      })
+  </script>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+      <button id="test-button" type="button" class="btn btn-primary">Click It Nooooo</button>
+      <div id="divResult"></div>
+    </body>
+</html>
